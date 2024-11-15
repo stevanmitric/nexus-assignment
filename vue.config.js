@@ -2,6 +2,7 @@ const { defineConfig } = require('@vue/cli-service');
 
 module.exports = defineConfig({
   transpileDependencies: true,
+  publicPath: '/nexus-assignment',
   configureWebpack: {
     plugins: [
       new (require('webpack').DefinePlugin)({
