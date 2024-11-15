@@ -45,6 +45,9 @@
         </option>
       </select>
     </div>
+    <div v-if="errorMessage" class="error-message">
+      <p>{{ errorMessage }}</p>
+    </div>
   </div>
 </template>
 
@@ -62,6 +65,7 @@
         selectedYear: '',
         selectedMake: '',
         selectedModel: '',
+        errorMessage: ''
       };
     },
 
@@ -72,6 +76,7 @@
           this.years = response.data.data;
         } catch (error) {
           console.error('Error fetching years:', error);
+          this.errorMessage = 'Failed to load available years. Please try again later.';
         }
       },
 
@@ -89,9 +94,10 @@
             `/makes?year=${this.selectedYear}`
           );
           this.makes = response.data.data;
-          this.makesCache[this.selectedYear] = response.data; // Cache the result
+          this.makesCache[this.selectedYear] = response.data.data; // Cache the result
         } catch (error) {
           console.error('Error fetching makes:', error);
+          this.errorMessage = 'Failed to load available makes. Please try again later.';
         }
       },
 
@@ -112,6 +118,7 @@
           this.modelsCache[cacheKey] = response.data.data;
         } catch (error) {
           console.error('Error fetching models:', error);
+          this.errorMessage = 'Failed to load available models. Please try again later.';
         }
       },
     },
